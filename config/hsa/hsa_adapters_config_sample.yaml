@@ -1486,3 +1486,70 @@ uniprot_dbxref_molecular_function:
   outdir: uniprot/has_xref_molecular_function
   nodes: False
   edges: True
+
+# Structural variant - genomic feature relationships (SAMPLE DATA)
+# These adapters create inferred relationships based on genomic coordinate overlap
+
+feature_located_in_structural_variant:
+  adapter:
+    module: biocypher_metta.adapters.hsa.structural_variant_feature_relationship_adapter
+    cls: StructuralVariantFeatureRelationshipAdapter
+    args:
+      sv_sources:
+        dbvar: ./samples/hsa/dbvar_sample.vcf.gz
+        dgv: ./samples/hsa/dgv_GRCh38_hg38_variants.txt.gz
+      feature_sources:
+        gene:
+          filepath: ./samples/hsa/gencode.annotation.sample.gtf.gz
+          format: gtf
+        transcript:
+          filepath: ./samples/hsa/gencode.annotation.sample.gtf.gz
+          format: gtf
+        exon:
+          filepath: ./samples/hsa/gencode.annotation.sample.gtf.gz
+          format: gtf
+        promoter:
+          filepath: ./samples/hsa/Hs_EPDnew.bed.gz
+          format: bed
+          id_column: 3
+        non_coding_rna:
+          filepath: ./samples/hsa/homo_sapiens.GRCh38.sample.bed.gz
+          format: bed
+          id_column: 3
+      label: located_in
+      taxon_id: 9606
+  outdir: structural_variant_relationships
+  nodes: False
+  edges: True
+
+feature_overlaps_structural_variant:
+  adapter:
+    module: biocypher_metta.adapters.hsa.structural_variant_feature_relationship_adapter
+    cls: StructuralVariantFeatureRelationshipAdapter
+    args:
+      sv_sources:
+        dbvar: ./samples/hsa/dbvar_sample.vcf.gz
+        dgv: ./samples/hsa/dgv_GRCh38_hg38_variants.txt.gz
+      feature_sources:
+        gene:
+          filepath: ./samples/hsa/gencode.annotation.sample.gtf.gz
+          format: gtf
+        transcript:
+          filepath: ./samples/hsa/gencode.annotation.sample.gtf.gz
+          format: gtf
+        exon:
+          filepath: ./samples/hsa/gencode.annotation.sample.gtf.gz
+          format: gtf
+        promoter:
+          filepath: ./samples/hsa/Hs_EPDnew.bed.gz
+          format: bed
+          id_column: 3
+        non_coding_rna:
+          filepath: ./samples/hsa/homo_sapiens.GRCh38.sample.bed.gz
+          format: bed
+          id_column: 3
+      label: overlaps_with
+      taxon_id: 9606
+  outdir: structural_variant_relationships
+  nodes: False
+  edges: True
