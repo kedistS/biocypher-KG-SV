@@ -424,7 +424,9 @@ class StructuralVariantFeatureRelationshipAdapter(Adapter):
         Generate edges between genomic features and structural variants.
 
         Yields:
-            Tuples of (source_id, target_id, label, properties)
+            Tuples of ((source_type, source_id), (target_type, target_id), label, properties)
+            where source_type is the feature type (gene, transcript, exon, promoter, non_coding_rna)
+            and target_type is 'structural_variant'
         """
         edge_count = 0
 
@@ -493,7 +495,9 @@ class StructuralVariantFeatureRelationshipAdapter(Adapter):
                                 props['sv_source'] = sv['source']
 
                         # Create edge from feature to structural variant
-                        yield feature_id, sv_id, self.label, props
+                        # Yield with node type information as tuples: (type, id)
+                        # This allows the writer to properly label nodes when schema has multiple source types
+                        yield (feature_type, feature_id), ('structural_variant', sv_id), self.label, props
                         edge_count += 1
 
         print(f"Generated {edge_count} {self.label} edges")
