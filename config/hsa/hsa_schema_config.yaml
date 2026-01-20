@@ -2198,3 +2198,89 @@ gene to disease association:
       type: str
     source_ref:
       type: str
+
+
+feature located in structural variant:
+  description: >-
+    An association between a genomic feature (gene, transcript, exon, promoter, non_coding_rna)
+    and a structural variant where the feature is fully contained within the structural variant's coordinates.
+  is_a: association
+  mixins: [biolink:GenomicEntityToGenomicEntityAssociation]
+  biolink_predicate: "biolink:located_in"
+  represented_as: edge
+  input_label: feature_located_in_structural_variant
+  output_label: located_in
+  source: [gene, transcript, exon, promoter, non_coding_rna]
+  target: structural variant
+  kgx_properties:
+    subject_category: "biolink:GenomicEntity"
+    object_category: "biolink:SequenceVariant"
+    knowledge_level: "knowledge_assertion"
+    agent_type: "automated_agent"
+  properties:
+    chr:
+      description: Chromosome where the overlap occurs
+      type: str
+    feature_start:
+      description: Start coordinate of the feature (1-based, inclusive)
+      type: int
+    feature_end:
+      description: End coordinate of the feature (1-based, inclusive)
+      type: int
+    sv_start:
+      description: Start coordinate of the structural variant (1-based, inclusive)
+      type: int
+    sv_end:
+      description: End coordinate of the structural variant (1-based, inclusive)
+      type: int
+    source:
+      description: Source of the relationship inference
+      type: str
+      biolink: primary_knowledge_source
+    sv_source:
+      description: Source database for the structural variant (dbVar or DGV)
+      type: str
+
+
+feature overlaps structural variant:
+  description: >-
+    An association between a genomic feature (gene, transcript, exon, promoter, non_coding_rna)
+    and a structural variant where the feature and structural variant share genomic coordinates
+    but the feature is not fully contained. This includes cases where the structural variant
+    is fully contained within the feature or where the overlap is partial.
+  is_a: association
+  mixins: [biolink:GenomicEntityToGenomicEntityAssociation]
+  biolink_predicate: "biolink:overlaps"
+  represented_as: edge
+  input_label: feature_overlaps_structural_variant
+  output_label: overlaps_with
+  source: [gene, transcript, exon, promoter, non_coding_rna]
+  target: structural variant
+  kgx_properties:
+    subject_category: "biolink:GenomicEntity"
+    object_category: "biolink:SequenceVariant"
+    knowledge_level: "knowledge_assertion"
+    agent_type: "automated_agent"
+  properties:
+    chr:
+      description: Chromosome where the overlap occurs
+      type: str
+    feature_start:
+      description: Start coordinate of the feature (1-based, inclusive)
+      type: int
+    feature_end:
+      description: End coordinate of the feature (1-based, inclusive)
+      type: int
+    sv_start:
+      description: Start coordinate of the structural variant (1-based, inclusive)
+      type: int
+    sv_end:
+      description: End coordinate of the structural variant (1-based, inclusive)
+      type: int
+    source:
+      description: Source of the relationship inference
+      type: str
+      biolink: primary_knowledge_source
+    sv_source:
+      description: Source database for the structural variant (dbVar or DGV)
+      type: str

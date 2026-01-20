@@ -1432,3 +1432,70 @@ uniprot_dbxref_molecular_function:
   outdir: uniprot/has_xref_molecular_function
   nodes: False
   edges: True
+
+# Structural variant - genomic feature relationships
+# These adapters create inferred relationships based on genomic coordinate overlap
+
+feature_located_in_structural_variant:
+  adapter:
+    module: biocypher_metta.adapters.hsa.structural_variant_feature_relationship_adapter
+    cls: StructuralVariantFeatureRelationshipAdapter
+    args:
+      sv_sources:
+        dbvar: /mnt/hdd_2/abdu/biocypher_data/dbvar/GRCh38.variant_call.all.vcf.gz
+        dgv: /mnt/hdd_2/abdu/biocypher_data/dgv/GRCh38_hg38_variants_2020-02-25.txt.gz
+      feature_sources:
+        gene:
+          filepath: /mnt/hdd_2/abdu/biocypher_data/gencode/gencode.annotation.gtf.gz
+          format: gtf
+        transcript:
+          filepath: /mnt/hdd_2/abdu/biocypher_data/gencode/gencode.annotation.gtf.gz
+          format: gtf
+        exon:
+          filepath: /mnt/hdd_2/abdu/biocypher_data/gencode/gencode.annotation.gtf.gz
+          format: gtf
+        promoter:
+          filepath: /mnt/hdd_2/abdu/biocypher_data/epd/Hs_EPDnew.bed.gz
+          format: bed
+          id_column: 3
+        non_coding_rna:
+          filepath: /mnt/hdd_2/abdu/biocypher_data/rna_central/homo_sapiens.GRCh38.bed.gz
+          format: bed
+          id_column: 3
+      label: located_in
+      taxon_id: 9606
+  outdir: structural_variant_relationships
+  nodes: False
+  edges: True
+
+feature_overlaps_structural_variant:
+  adapter:
+    module: biocypher_metta.adapters.hsa.structural_variant_feature_relationship_adapter
+    cls: StructuralVariantFeatureRelationshipAdapter
+    args:
+      sv_sources:
+        dbvar: /mnt/hdd_2/abdu/biocypher_data/dbvar/GRCh38.variant_call.all.vcf.gz
+        dgv: /mnt/hdd_2/abdu/biocypher_data/dgv/GRCh38_hg38_variants_2020-02-25.txt.gz
+      feature_sources:
+        gene:
+          filepath: /mnt/hdd_2/abdu/biocypher_data/gencode/gencode.annotation.gtf.gz
+          format: gtf
+        transcript:
+          filepath: /mnt/hdd_2/abdu/biocypher_data/gencode/gencode.annotation.gtf.gz
+          format: gtf
+        exon:
+          filepath: /mnt/hdd_2/abdu/biocypher_data/gencode/gencode.annotation.gtf.gz
+          format: gtf
+        promoter:
+          filepath: /mnt/hdd_2/abdu/biocypher_data/epd/Hs_EPDnew.bed.gz
+          format: bed
+          id_column: 3
+        non_coding_rna:
+          filepath: /mnt/hdd_2/abdu/biocypher_data/rna_central/homo_sapiens.GRCh38.bed.gz
+          format: bed
+          id_column: 3
+      label: overlaps_with
+      taxon_id: 9606
+  outdir: structural_variant_relationships
+  nodes: False
+  edges: True
